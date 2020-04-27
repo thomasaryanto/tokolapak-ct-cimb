@@ -24,7 +24,7 @@ export const loginHandler = (userData) => {
             payload: res.data[0],
           });
         } else {
-          alert("masuk");
+          alert("Username / Passsword salah!")
           dispatch({
             type: ON_LOGIN_FAIL,
             payload: "Username atau password salah",
@@ -32,6 +32,7 @@ export const loginHandler = (userData) => {
         }
       })
       .catch((err) => {
+        alert("Terjadi kesalahan jaringan!")
         console.log(err);
       });
   };
@@ -79,6 +80,7 @@ export const registerHandler = (userData) => {
     })
       .then((res) => {
         if (res.data.length > 0) {
+          alert("Username telah terpakai!")
           dispatch({
             type: "ON_REGISTER_FAIL",
             payload: "username sudah digunakan",
@@ -93,11 +95,13 @@ export const registerHandler = (userData) => {
               });
             })
             .catch((err) => {
+              alert("Terjadi kesalahan jaringan!")
               console.log(err);
             });
         }
       })
       .catch((err) => {
+        alert("Terjadi kesalahan jaringan!")
         console.log(err);
       });
   };

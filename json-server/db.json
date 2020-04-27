@@ -4,6 +4,25 @@
       "username": "seto",
       "password": "password",
       "id": 1
+    },
+    {
+      "username": "setoo",
+      "password": "asd",
+      "repeat_password": "",
+      "email": "asd",
+      "id": 2
+    },
+    {
+      "username": "setoooo",
+      "password": "asd",
+      "email": "asda",
+      "id": 3
+    },
+    {
+      "username": "tom",
+      "password": "tom",
+      "email": "thomas@gmail.com",
+      "id": 4
     }
   ]
 }

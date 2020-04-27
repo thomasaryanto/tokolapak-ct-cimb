@@ -1,0 +1,13 @@
+.nav-link {
+    border: 1px solid #E2E5E6;
+    border-radius: 0px !important;
+    margin-right: 10px;
+}
+
+.nav-link.active {
+    background: #373F41 !important;
+}
+
+a.nav-link {
+    color: black;
+}

@@ -8,6 +8,12 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import ButtonUI from "../Button/Button.tsx";
 
+import { connect } from "react-redux"
+import { logoutHandler } from "../../../redux/actions"
+import Cookie from 'universal-cookie';
+
+const cookieObject = new Cookie();
+
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
 };
@@ -17,6 +23,11 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
   };
+
+  logout = () => {
+    cookieObject.remove("authData")
+    this.props.logoutHandler()
+  }
 
   onFocus = () => {
     this.setState({ searchBarIsFocused: true });
@@ -40,7 +51,7 @@ class Navbar extends React.Component {
             onBlur={this.onBlur}
             className={`search-bar ${
               this.state.searchBarIsFocused ? "active" : null
-            }`}
+              }`}
             type="text"
             placeholder="Cari produk impianmu disini"
           />
@@ -56,14 +67,32 @@ class Navbar extends React.Component {
           <CircleBg>
             <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
           </CircleBg> */}
-          <ButtonUI className="mr-3" type="textual">
-            Sign in
-          </ButtonUI>
-          <ButtonUI type="contained">Sign up</ButtonUI>
+
+          {
+            this.props.user.id ?
+              (
+                <>
+                  <Link className="nav-item nav-link" to="#">Hello, {this.props.user.username}!</Link>
+                  <ButtonUI onClick={this.logout} type="contained">Logout</ButtonUI>
+                </>
+              ) :
+              (
+                <>
+                  <Link to="/auth">
+                    <ButtonUI className="mr-3" type="textual">Sign in</ButtonUI>
+                  </Link>
+
+                  <Link to="/auth">
+                    <ButtonUI type="contained">Sign up</ButtonUI>
+                  </Link>
+                </>
+
+              )
+          }
         </div>
       </div>
     );
   }
 }
 
-export default Navbar;
+export default connect((state) => ({ user: state.user }), { logoutHandler })(Navbar);
