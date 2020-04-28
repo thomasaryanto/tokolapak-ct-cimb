@@ -6,10 +6,18 @@
       "id": 1
     },
     {
-      "username": "tom",
-      "password": "tom",
-      "email": "thomas@gmail.com",
-      "id": 4
+      "username": "doraemon",
+      "fullName": "Dora Emon",
+      "password": "password",
+      "email": "doraemon@mail.com",
+      "id": 2
+    },
+    {
+      "username": "pikachu",
+      "fullName": "Dora Emon",
+      "password": "password",
+      "email": "doraemon@mail.com",
+      "id": 3
     }
   ],
   "products": [

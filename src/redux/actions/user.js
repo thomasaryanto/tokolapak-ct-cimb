@@ -83,7 +83,7 @@ export const registerHandler = (userData) => {
           alert("Username telah terpakai!")
           dispatch({
             type: "ON_REGISTER_FAIL",
-            payload: "username sudah digunakan",
+            payload: "Username sudah digunakan",
           });
         } else {
           Axios.post(`${API_URL}/users`, userData)
