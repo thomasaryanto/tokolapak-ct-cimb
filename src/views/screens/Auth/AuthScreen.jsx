@@ -19,6 +19,7 @@ class AuthScreen extends React.Component {
     reg_email: "",
     reg_password: "",
     reg_repeat_password: "",
+    is_show: false,
     is_loading: false
   }
 
@@ -30,6 +31,10 @@ class AuthScreen extends React.Component {
 
   inputHandler = (event, field) => {
     this.setState({ [field]: event.target.value })
+  }
+
+  checkBoxHandler = (event) => {
+    this.setState({ is_show: event.target.checked })
   }
 
   login = () => {
@@ -103,12 +108,12 @@ class AuthScreen extends React.Component {
                       <TextField onChange={(e) => this.inputHandler(e, "reg_username")} value={reg_username} placeholder="Username" type="text" className="mt-3" />
                       <TextField onChange={(e) => this.inputHandler(e, "reg_email")} value={reg_email} placeholder="Email" type="email" className="mt-3" />
 
-                      <TextField onChange={(e) => this.inputHandler(e, "reg_password")} value={reg_password} placeholder="Password" type="password" className="mt-3" />
+                      <TextField onChange={(e) => this.inputHandler(e, "reg_password")} value={reg_password} placeholder="Password" type={this.state.is_show ? "text" : "password"} className="mt-3" />
                       <TextField onChange={(e) => this.inputHandler(e, "reg_repeat_password")} value={reg_repeat_password} placeholder="Confirm Password" type="password" className="mt-3" />
 
                       <div className="form-check mt-3">
-                        <input type="checkbox" className="form-check-input" />
-                        <label className="form-check-label" for="exampleCheck1">I agree to <a href="#">Terms of Use</a></label>
+                        <input onChange={(e) => this.checkBoxHandler(e)} type="checkbox" className="form-check-input" />
+                        <label className="form-check-label">Show Password</label>
                       </div>
 
                       <div className="d-flex justify-content-center">

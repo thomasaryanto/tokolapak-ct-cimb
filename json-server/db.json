@@ -6,23 +6,36 @@
       "id": 1
     },
     {
-      "username": "setoo",
-      "password": "asd",
-      "repeat_password": "",
-      "email": "asd",
-      "id": 2
-    },
-    {
-      "username": "setoooo",
-      "password": "asd",
-      "email": "asda",
-      "id": 3
-    },
-    {
       "username": "tom",
       "password": "tom",
       "email": "thomas@gmail.com",
       "id": 4
+    }
+  ],
+  "products": [
+    {
+      "productName": "iPhone 7 Plus",
+      "price": 5000000,
+      "category": "Phone",
+      "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
+      "desc": "HP Terbaikk loh",
+      "id": 1
+    },
+    {
+      "productName": "iPad Pro 3",
+      "price": 15000000,
+      "category": "Tablet",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
+      "desc": "HP Terbaikk loh",
+      "id": 2
+    },
+    {
+      "productName": "Macbook Pro",
+      "price": 20000000,
+      "category": "Laptop",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
+      "desc": "HP Terbaikk loh",
+      "id": 3
     }
   ]
 }
