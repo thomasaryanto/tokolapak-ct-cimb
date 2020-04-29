@@ -43,7 +43,7 @@ const dummy = [
     image: iPadPro,
     desc: `
     iPad Pro baru telah didesain ulang seutuhnya dan dilengkapi dengan teknologi Apple yang paling canggih. Ini akan membuat Anda berpikir ulang apa yang iPad mampu lakukan`,
-    id: 2,
+    id: 3,
   },
 ];
 
