@@ -45,5 +45,19 @@
       "desc": "HP Terbaikk loh",
       "id": 3
     }
+  ],
+  "cart": [
+    {
+      "userId": 2,
+      "productId": 2,
+      "quantity": 1,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "productId": 2,
+      "quantity": 1,
+      "id": 2
+    }
   ]
 }

@@ -57,23 +57,19 @@ class Navbar extends React.Component {
           />
         </div>
         <div className="d-flex flex-row align-items-center">
-          {/* <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
-          <p className="small ml-3 mr-4">Profile</p>
-          <FontAwesomeIcon
-            className="mr-2"
-            icon={faShoppingCart}
-            style={{ fontSize: 24 }}
-          />
-          <CircleBg>
-            <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
-          </CircleBg> */}
+
 
           {
             this.props.user.id ?
               (
                 <>
-                  <Link className="nav-item nav-link" to="#">Hello, {this.props.user.username}!</Link>
-                  <ButtonUI onClick={this.logout} type="contained">Logout</ButtonUI>
+                  <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
+                  <p className="small ml-3 mr-4">{this.props.user.id}</p>
+                  <FontAwesomeIcon className="mr-2" icon={faShoppingCart} style={{ fontSize: 24 }} />
+                  <CircleBg>
+                    <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
+                  </CircleBg>
+                  <ButtonUI onClick={this.logout} type="contained" className="ml-2">Logout</ButtonUI>
                 </>
               ) :
               (
@@ -90,7 +86,7 @@ class Navbar extends React.Component {
               )
           }
         </div>
-      </div>
+      </div >
     );
   }
 }
