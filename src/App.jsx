@@ -13,7 +13,7 @@ import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 
-const cookieObject = new Cookie();
+const cookieObj = new Cookie();
 
 class App extends React.Component {
 

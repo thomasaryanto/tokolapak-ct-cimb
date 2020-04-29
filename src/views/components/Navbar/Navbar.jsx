@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
-
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
@@ -67,11 +64,13 @@ class Navbar extends React.Component {
                 <>
                   <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
                   <p className="small ml-3 mr-4">{this.props.user.id}</p>
-                  <FontAwesomeIcon className="mr-2" icon={faShoppingCart} style={{ fontSize: 24 }} />
+                  <Link to="/cart">
+                    <FontAwesomeIcon className="mr-2" icon={faShoppingCart} style={{ fontSize: 24 }} />
+                  </Link>
                   <CircleBg>
                     <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
                   </CircleBg>
-                  <ButtonUI onClick={this.logout} type="contained" className="ml-2">Logout</ButtonUI>
+                  <ButtonUI onClick={this.logout} type="outlined" className="ml-4">Logout</ButtonUI>
                 </>
               ) :
               (
