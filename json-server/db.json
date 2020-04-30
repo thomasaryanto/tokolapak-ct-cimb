@@ -41,7 +41,7 @@
       "id": 1
     },
     {
-      "productName": "iPad Pro 3",
+      "productName": "iPad Pro 33",
       "price": 15000000,
       "category": "Tab",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
@@ -104,50 +104,15 @@
       "image": "https://image.oppo.com/content/dam/oppo/id/mkt/header/Compass-Pro%20orange-EN.png",
       "desc": "Keluaran terbaru dari OPPO guys, STOCK TERBATAS!!",
       "id": 9
+    },
+    {
+      "productName": "test",
+      "price": "123",
+      "category": "Laptop",
+      "image": "asdasd",
+      "desc": "asdasd",
+      "id": 10
     }
   ],
-  "carts": [
-    {
-      "productName": "iMac (2019)",
-      "price": "20000000",
-      "category": "Desktop",
-      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
-      "desc": "test",
-      "id": 4
-    },
-    {
-      "productName": "iMac (Lagi)",
-      "price": "10000000",
-      "category": "Desktop",
-      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
-      "desc": "oke",
-      "id": 5
-    },
-    {
-      "productName": "asdsadasd",
-      "price": "123123",
-      "category": "Laptop",
-      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
-      "desc": "sadasd",
-      "id": 6
-    },
-    {
-      "userId": 0,
-      "productId": 1,
-      "quantity": 1,
-      "id": 4
-    },
-    {
-      "userId": 4,
-      "productId": 1,
-      "quantity": 1,
-      "id": 5
-    },
-    {
-      "userId": 4,
-      "productId": 1,
-      "quantity": 1,
-      "id": 6
-    }
-  ]
+  "carts": []
 }

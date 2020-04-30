@@ -13,8 +13,6 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
-import { logoutHandler } from "../../../redux/actions";
-
 import { connect } from "react-redux"
 import { logoutHandler } from "../../../redux/actions"
 import Cookie from 'universal-cookie';
