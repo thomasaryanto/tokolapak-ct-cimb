@@ -5,6 +5,7 @@ import "./Cart.css";
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
 import ButtonUI from "../../components/Button/Button";
+import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
   state = {
@@ -84,7 +85,9 @@ class Cart extends React.Component {
                 </tbody>
               </table>
             ) : (
-                <h3 style={{ marginTop: "20%" }}>Cart anda kosong!</h3>
+                <div class="alert alert-primary" role="alert" style={{ marginTop: "20%" }}>
+                  <p>Cart anda masih kosong! <Link to="/">Yuk belanja.</Link></p>
+                </div>
               )
           }
         </div>

@@ -12,6 +12,7 @@ import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
+import AdminDashboard from "./views/screens/Admin/AdminDashboard";
 
 const cookieObj = new Cookie();
 
@@ -42,6 +43,7 @@ class App extends React.Component {
               component={ProductDetails}
             />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/admin" component={AdminDashboard} />
           </Switch>
           <div style={{ height: "120px" }} />
         </>

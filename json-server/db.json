@@ -3,6 +3,7 @@
     {
       "username": "seto",
       "password": "password",
+      "role": "user",
       "id": 1
     },
     {
@@ -10,6 +11,7 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 2
     },
     {
@@ -17,7 +19,16 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 3
+    },
+    {
+      "username": "admin",
+      "fullName": "Super Admin",
+      "password": "admin",
+      "email": "admin@mail.com",
+      "role": "admin",
+      "id": 4
     }
   ],
   "products": [
@@ -44,6 +55,38 @@
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
       "desc": "HP Terbaikk loh",
       "id": 3
+    },
+    {
+      "productName": "iMac (2019)",
+      "price": "20000000",
+      "category": "Desktop",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
+      "desc": "test",
+      "id": 4
+    },
+    {
+      "productName": "iMac (Lagi)",
+      "price": "10000000",
+      "category": "Desktop",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
+      "desc": "oke",
+      "id": 5
+    },
+    {
+      "productName": "asdsadasd",
+      "price": "123123",
+      "category": "Laptop",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
+      "desc": "sadasd",
+      "id": 6
+    },
+    {
+      "productName": "Imac",
+      "price": "10000000",
+      "category": "Laptop",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
+      "desc": "asdasd",
+      "id": 7
     }
   ],
   "carts": [
@@ -52,18 +95,6 @@
       "productId": 2,
       "quantity": 1,
       "id": 1
-    },
-    {
-      "userId": 1,
-      "productId": 2,
-      "quantity": 1,
-      "id": 2
-    },
-    {
-      "userId": 1,
-      "productId": 3,
-      "quantity": 1,
-      "id": 4
     }
   ]
 }

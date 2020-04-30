@@ -63,7 +63,7 @@ class Navbar extends React.Component {
               (
                 <>
                   <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
-                  <p className="small ml-3 mr-4">{this.props.user.id}</p>
+                  <p className="small ml-3 mr-4">{this.props.user.username}</p>
                   <Link to="/cart">
                     <FontAwesomeIcon className="mr-2" icon={faShoppingCart} style={{ fontSize: 24 }} />
                   </Link>
