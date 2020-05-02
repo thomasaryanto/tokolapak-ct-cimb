@@ -24,19 +24,47 @@ class ProductDetails extends React.Component {
         // POST method ke /cart
         // Isinya: userId, productId, quantity
         // console.log(this.props.user.id);
-        console.log(this.state.productData.id);
-        Axios.post(`${API_URL}/carts`, {
-            userId: this.props.user.id,
-            productId: this.state.productData.id,
-            quantity: 1,
+        // console.log(this.state.productData.id);
+
+        Axios.get(`${API_URL}/carts`, {
+            params: {
+                userId: this.props.user.id,
+                productId: this.state.productData.id,
+            },
         })
             .then((res) => {
-                console.log(res);
-                swal("Add to cart", "Your item has been added to your cart", "success");
+                if (res.data.length > 0) {
+                    Axios.patch(`${API_URL}/carts/${res.data[0].id}`, {
+                        quantity: res.data[0].quantity + 1
+                    })
+                        .then((res) => {
+                            console.log(res);
+                            swal("Add to cart", "Your item has been added to your cart (+1)", "success");
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                } else {
+                    Axios.post(`${API_URL}/carts`, {
+                        userId: this.props.user.id,
+                        productId: this.state.productData.id,
+                        quantity: 1,
+                    })
+                        .then((res) => {
+                            console.log(res);
+                            swal("Add to cart", "Your item has been added to your cart", "success");
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
             })
             .catch((err) => {
+                alert("Terjadi kesalahan jaringan!")
                 console.log(err);
             });
+
+
     };
 
     componentDidMount() {
@@ -80,10 +108,15 @@ class ProductDetails extends React.Component {
                         <p className="mt-4">{desc}</p>
                         {/* <TextField type="number" placeholder="Quantity" className="mt-3" /> */}
                         <div className="d-flex flex-row mt-4">
-                            <ButtonUI onClick={this.addToCartHandler}>Add To Cart</ButtonUI>
-                            <ButtonUI className="ml-4" type="outlined">
-                                Add To Wishlist
-              </ButtonUI>
+                            {this.props.user.id ? (
+                                <>
+                                    <ButtonUI onClick={this.addToCartHandler}>Add To Cart</ButtonUI>
+                                    <ButtonUI className="ml-4" type="outlined">Add To Wishlist</ButtonUI>
+                                </>
+                            ) : (
+                                    <p><strong>Login to add item.</strong></p>
+                                )}
+
                         </div>
                     </div>
                 </div>

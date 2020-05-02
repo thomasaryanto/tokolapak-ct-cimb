@@ -14,7 +14,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
 import { connect } from "react-redux"
-import { logoutHandler } from "../../../redux/actions"
+import { logoutHandler, searchHandler } from "../../../redux/actions"
 import Cookie from 'universal-cookie';
 
 const cookieObject = new Cookie();
@@ -67,6 +67,7 @@ class Navbar extends React.Component {
           <input
             onFocus={this.onFocus}
             onBlur={this.onBlur}
+            onChange={(e) => this.props.onSearch(e.target.value)}
             className={`search-bar ${
               this.state.searchBarIsFocused ? "active" : null
               }`}
@@ -156,6 +157,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   onLogout: logoutHandler,
+  onSearch: searchHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

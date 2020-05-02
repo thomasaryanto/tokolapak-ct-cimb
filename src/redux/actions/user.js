@@ -112,3 +112,10 @@ export const cookieChecker = () => {
     type: "COOKIE_CHECK",
   };
 };
+
+export const searchHandler = (searchQuery) => {
+  return {
+    type: "ON_SEARCH",
+    payload: searchQuery
+  };
+};

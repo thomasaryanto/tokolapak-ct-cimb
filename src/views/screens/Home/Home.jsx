@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselControl, CarouselItem } from "reactstrap";
 import Axios from "axios";
+import { connect } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShippingFast,
@@ -51,6 +52,7 @@ class Home extends React.Component {
   state = {
     activeIndex: 0,
     animating: false,
+    allData: [],
     bestSellerData: [],
   };
 
@@ -114,16 +116,29 @@ class Home extends React.Component {
   getBestSellerData = () => {
     Axios.get(`${API_URL}/products`)
       .then((res) => {
-        this.setState({ bestSellerData: res.data });
+        this.setState({ allData: res.data, bestSellerData: res.data });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  changeCategory = (category = null) => {
+    if (category == null) {
+      this.setState({ bestSellerData: this.state.allData })
+    }
+    else {
+      this.setState({ bestSellerData: this.state.allData.filter(val => val.category == category) })
+    }
+  }
+
   renderProducts = () => {
-    return this.state.bestSellerData.map((val) => {
-      return <ProductCard key={`bestseller-${val.id}`} className="m-2" data={val} />;
+    return this.state.bestSellerData.filter(val => val.productName.toLowerCase().startsWith(this.props.user.searchQuery.toLowerCase())).map((val) => {
+      return (
+        <Link to={`/product/${val.id}`}>
+          <ProductCard key={`bestseller-${val.id}`} className="m-2" data={val} />
+        </Link>
+      );
     });
   };
 
@@ -135,16 +150,19 @@ class Home extends React.Component {
     return (
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="#" onClick={() => this.changeCategory()} style={{ color: "inherit" }}>
+            <h6 className="mx-4 font-weight-bold">ALL</h6>
+          </Link>
+          <Link to="#" onClick={() => this.changeCategory("Phone")} style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">PHONE</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="#" onClick={() => this.changeCategory("Laptop")} style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">LAPTOP</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="#" onClick={() => this.changeCategory("Tab")} style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">TAB</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="#" onClick={() => this.changeCategory("Desktop")} style={{ color: "inherit" }}>
             <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
           </Link>
         </div>
@@ -227,4 +245,10 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
