@@ -133,9 +133,9 @@ class Home extends React.Component {
   }
 
   renderProducts = () => {
-    return this.state.bestSellerData.filter(val => val.productName.toLowerCase().startsWith(this.props.user.searchQuery.toLowerCase())).map((val) => {
+    return this.state.bestSellerData.filter(val => val.productName.toLowerCase().startsWith(this.props.component.searchQuery.toLowerCase())).map((val) => {
       return (
-        <Link to={`/product/${val.id}`}>
+        <Link to={`/product/${val.id}`} style={{ textDecoration: "none", color: "inherit" }}>
           <ProductCard key={`bestseller-${val.id}`} className="m-2" data={val} />
         </Link>
       );
@@ -248,6 +248,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    component: state.component
   };
 };
 

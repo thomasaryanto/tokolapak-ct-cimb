@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { Spinner } from "reactstrap"
 
 import TextField from "../../components/TextField/TextField";
 import ButtonUI from "../../components/Button/Button";
 import "./AuthScreen.css";
 
 // actions
-import { registerHandler, loginHandler } from "../../../redux/actions";
+import { registerHandler, loginHandler, cartUpdateHandler } from "../../../redux/actions";
 
 class AuthScreen extends React.Component {
   state = {
@@ -24,13 +25,14 @@ class AuthScreen extends React.Component {
       email: "",
       password: "",
       showPassword: false,
-    },
+    }
   };
 
   componentDidUpdate() {
     if (this.props.user.id) {
       const cookie = new Cookies();
       cookie.set("authData", JSON.stringify(this.props.user), { path: "/" });
+      this.props.cartUpdateHandler(this.props.user.id);
     }
   }
 
@@ -71,6 +73,7 @@ class AuthScreen extends React.Component {
     };
 
     this.props.onLogin(newUser);
+
   };
 
   checkboxHandler = (e, form) => {
@@ -128,13 +131,18 @@ class AuthScreen extends React.Component {
           />{" "}
           Show Password
           <div className="d-flex justify-content-center">
-            <ButtonUI
-              type="contained"
-              onClick={this.registerBtnHandler}
-              className="mt-4"
-            >
-              Register
-            </ButtonUI>
+
+            {
+              this.props.component.isLoading ? (<Spinner color="primary" />) : (
+                <ButtonUI
+                  type="contained"
+                  onClick={this.registerBtnHandler}
+                  className="mt-4"
+                >
+                  Register
+                </ButtonUI>
+              )
+            }
           </div>
         </div>
       );
@@ -157,15 +165,23 @@ class AuthScreen extends React.Component {
             onChange={(e) => this.inputHandler(e, "password", "loginForm")}
             placeholder="Password"
             className="mt-2"
+            type="password"
           />
           <div className="d-flex justify-content-center">
-            <ButtonUI
-              onClick={this.loginBtnHandler}
-              type="contained"
-              className="mt-4"
-            >
-              Login
-            </ButtonUI>
+
+            {
+              this.props.component.isLoading ? (<Spinner color="primary" />) : (
+                <ButtonUI
+                  onClick={this.loginBtnHandler}
+                  type="contained"
+                  className="mt-4"
+                >
+                  Login
+                </ButtonUI>
+              )
+            }
+
+
           </div>
         </div>
       );
@@ -217,12 +233,14 @@ class AuthScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    component: state.component
   };
 };
 
 const mapDispatchToProps = {
   onRegister: registerHandler,
   onLogin: loginHandler,
+  cartUpdateHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

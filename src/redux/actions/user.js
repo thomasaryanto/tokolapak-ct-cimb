@@ -11,6 +11,11 @@ export const loginHandler = (userData) => {
   return (dispatch) => {
     const { username, password } = userData;
 
+    dispatch({
+      type: "ON_LOADING",
+      payload: true,
+    });
+
     Axios.get(`${API_URL}/users`, {
       params: {
         username,
@@ -20,19 +25,36 @@ export const loginHandler = (userData) => {
       .then((res) => {
         if (res.data.length > 0) {
           dispatch({
+            type: "ON_LOADING",
+            payload: false,
+          });
+
+          dispatch({
             type: ON_LOGIN_SUCCESS,
             payload: res.data[0],
           });
         } else {
-          alert("Username / Passsword salah!")
           dispatch({
             type: ON_LOGIN_FAIL,
             payload: "Username atau password salah",
           });
+
+          dispatch({
+            type: "ON_LOADING",
+            payload: false,
+          });
         }
       })
       .catch((err) => {
-        alert("Terjadi kesalahan jaringan!")
+        dispatch({
+          type: ON_LOGIN_FAIL,
+          payload: "Terjadi kesalahan jaringan.",
+        });
+
+        dispatch({
+          type: "ON_LOADING",
+          payload: false,
+        });
         console.log(err);
       });
   };
@@ -73,6 +95,12 @@ export const logoutHandler = () => {
 
 export const registerHandler = (userData) => {
   return (dispatch) => {
+
+    dispatch({
+      type: "ON_LOADING",
+      payload: true,
+    });
+
     Axios.get(`${API_URL}/users`, {
       params: {
         username: userData.username,
@@ -80,28 +108,56 @@ export const registerHandler = (userData) => {
     })
       .then((res) => {
         if (res.data.length > 0) {
-          alert("Username telah terpakai!")
           dispatch({
             type: "ON_REGISTER_FAIL",
             payload: "Username sudah digunakan",
           });
+
+          dispatch({
+            type: "ON_LOADING",
+            payload: false,
+          });
+
         } else {
           Axios.post(`${API_URL}/users`, { ...userData, role: "user" })
             .then((res) => {
               console.log(res.data);
+              dispatch({
+                type: "ON_LOADING",
+                payload: false,
+              });
+
               dispatch({
                 type: ON_LOGIN_SUCCESS,
                 payload: res.data,
               });
             })
             .catch((err) => {
-              alert("Terjadi kesalahan jaringan!")
+              dispatch({
+                type: ON_LOGIN_FAIL,
+                payload: "Terjadi kesalahan jaringan.",
+              });
+
+              dispatch({
+                type: "ON_LOADING",
+                payload: false,
+              });
+
               console.log(err);
             });
         }
       })
       .catch((err) => {
-        alert("Terjadi kesalahan jaringan!")
+        dispatch({
+          type: ON_LOGIN_FAIL,
+          payload: "Terjadi kesalahan jaringan.",
+        });
+
+        dispatch({
+          type: "ON_LOADING",
+          payload: false,
+        });
+
         console.log(err);
       });
   };
@@ -113,9 +169,3 @@ export const cookieChecker = () => {
   };
 };
 
-export const searchHandler = (searchQuery) => {
-  return {
-    type: "ON_SEARCH",
-    payload: searchQuery
-  };
-};

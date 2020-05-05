@@ -2,7 +2,9 @@
   "users": [
     {
       "username": "seto",
+      "fullName": "Kak Seto",
       "password": "password",
+      "email": "seto@mail.com",
       "role": "user",
       "id": 1
     },
@@ -15,7 +17,7 @@
       "id": 2
     },
     {
-      "username": "pikachu",
+      "username": "pikachu22",
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
@@ -29,6 +31,14 @@
       "email": "admin@mail.com",
       "role": "admin",
       "id": 4
+    },
+    {
+      "username": "tom",
+      "fullName": "Thomas",
+      "password": "tom",
+      "email": "asdsa@gmail.com",
+      "role": "user",
+      "id": 5
     }
   ],
   "products": [
@@ -102,47 +112,121 @@
   "transactions": [
     {
       "userId": 1,
-      "date": "Sabtu, 2 Mei 2020 - 23:33 WIB",
-      "shippingAddress": "Jl. Kenangan No. 123",
-      "products": [
-        {
-          "productName": "Macbook Pro",
-          "price": 20000000,
-          "category": "Laptop",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
-          "desc": "HP Terbaikk loh",
-          "id": 3,
-          "quantity": 1
-        },
-        {
-          "name": "iMac (2019)",
-          "price": "23000000",
-          "category": "Desktop",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/imac-27-cto-hero-201903_1_1.jpeg",
-          "desc": "Desktop khusus para sultan gan.",
-          "id": 4,
-          "productName": "iMac (2019)",
-          "quantity": 1
-        }
-      ],
+      "subTotal": 60300000,
+      "checkoutDate": "Selasa, 5 Mei 2020 - 17:26 WIB",
+      "finishDate": "Selasa, 5 Mei 2020 - 17:32 WIB",
+      "shippingAddress": "Jl. Kenangan NO 666",
+      "shippingType": "Instant",
+      "shippingPrice": 100000,
+      "status": "completed",
       "id": 1
     },
     {
-      "userId": 1,
-      "date": "Sabtu, 2 Mei 2020 - 23:38 WIB",
-      "shippingAddress": "Jl. Kebenaran No. 666",
-      "products": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1,
-          "quantity": 3
-        }
-      ],
+      "userId": 5,
+      "subTotal": 58000000,
+      "checkoutDate": "Selasa, 5 Mei 2020 - 17:28 WIB",
+      "finishDate": "Selasa, 5 Mei 2020 - 17:35 WIB",
+      "shippingAddress": "Jl. GOP 9",
+      "shippingType": "Economy",
+      "shippingPrice": 0,
+      "status": "completed",
       "id": 2
+    },
+    {
+      "userId": 5,
+      "subTotal": 10000000,
+      "checkoutDate": "Selasa, 5 Mei 2020 - 17:28 WIB",
+      "finishDate": "Selasa, 5 Mei 2020 - 17:32 WIB",
+      "shippingAddress": "Jl. in aja dulu",
+      "shippingType": "Same Day",
+      "shippingPrice": 50000,
+      "status": "completed",
+      "id": 3
+    },
+    {
+      "userId": 5,
+      "subTotal": 34000000,
+      "checkoutDate": "Selasa, 5 Mei 2020 - 17:38 WIB",
+      "finishDate": "Selasa, 5 Mei 2020 - 17:40 WIB",
+      "shippingAddress": "Jl. abcdefg",
+      "shippingType": "Instant",
+      "shippingPrice": 100000,
+      "status": "completed",
+      "id": 4
+    }
+  ],
+  "transaction_details": [
+    {
+      "transactionId": 1,
+      "productId": 2,
+      "productName": "iPad Pro 33",
+      "price": 15000000,
+      "quantity": 1,
+      "totalPrice": 15000000,
+      "id": 1
+    },
+    {
+      "transactionId": 1,
+      "productId": 8,
+      "productName": "OPPO Find X2 Pro",
+      "price": "5300000",
+      "quantity": 1,
+      "totalPrice": 5300000,
+      "id": 2
+    },
+    {
+      "transactionId": 1,
+      "productId": 3,
+      "productName": "Macbook Pro",
+      "price": 20000000,
+      "quantity": 2,
+      "totalPrice": 40000000,
+      "id": 3
+    },
+    {
+      "transactionId": 2,
+      "productId": 7,
+      "productName": "iPad 7 ",
+      "price": "6000000",
+      "quantity": 3,
+      "totalPrice": 18000000,
+      "id": 4
+    },
+    {
+      "transactionId": 2,
+      "productId": 3,
+      "productName": "Macbook Pro",
+      "price": 20000000,
+      "quantity": 2,
+      "totalPrice": 40000000,
+      "id": 5
+    },
+    {
+      "transactionId": 3,
+      "productId": 1,
+      "productName": "iPhone 7 +",
+      "price": 5000000,
+      "quantity": 2,
+      "totalPrice": 10000000,
+      "id": 6
+    },
+    {
+      "transactionId": 4,
+      "productId": 1,
+      "productName": "iPhone 7 +",
+      "price": 5000000,
+      "quantity": 2,
+      "totalPrice": 10000000,
+      "id": 7
+    },
+    {
+      "transactionId": 4,
+      "productId": 5,
+      "productName": "iPhone 11 Pro Max",
+      "price": "24000000",
+      "quantity": 1,
+      "totalPrice": 24000000,
+      "id": 8
     }
   ]
 }

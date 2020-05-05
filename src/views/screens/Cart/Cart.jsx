@@ -10,13 +10,29 @@ import ButtonUI from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+import { cartUpdateHandler } from "../../../redux/actions";
+
 class Cart extends React.Component {
   state = {
     cartData: [],
     cartTotal: 0,
+    checkoutItems: [],
     modalOpen: false,
-    shippingAddress: ""
+    shippingAddress: "",
+    shippingType: "",
+    shippingPrice: 0,
   };
+
+
+  componentDidMount() {
+    this.getCartData();
+  }
+
+  // componentDidUpdate() {
+  //   if (this.props.user.id) {
+  //     this.props.cartUpdateHandler(this.props.user.id);
+  //   }
+  // }
 
   inputHandler = (event, field) => {
     this.setState({ [field]: event.target.value })
@@ -30,9 +46,9 @@ class Cart extends React.Component {
       },
     })
       .then((res) => {
-        this.setState({ cartData: res.data })
         console.log(res.data);
         this.setState({ cartData: res.data });
+        this.props.cartUpdateHandler(this.props.user.id);
       })
       .catch((err) => {
         console.log(err);
@@ -61,6 +77,9 @@ class Cart extends React.Component {
             />{" "}
           </td>
           <td>
+            {/* <input type="checkbox" onChange={(e) => this.checkBoxHandler(e, idx)} /> */}
+
+
             <ButtonUI
               type="outlined"
               onClick={() => this.deleteCartHandler(id)}
@@ -105,10 +124,6 @@ class Cart extends React.Component {
       });
   };
 
-  componentDidMount() {
-    this.getCartData();
-  }
-
   toggleModal = () => {
     this.setState({ modalOpen: !this.state.modalOpen });
   };
@@ -116,7 +131,7 @@ class Cart extends React.Component {
   deleteCart = (id) => {
     Axios.delete(`${API_URL}/carts/${id}`)
       .then((res) => {
-        this.setState({ modalOpen: false });
+        this.props.cartUpdateHandler(this.props.user.id);
         console.log(res);
       })
       .catch((err) => {
@@ -129,6 +144,8 @@ class Cart extends React.Component {
     var totalCount = 0;
     var x
 
+    console.log(this.state.checkoutItems)
+
     for (x of this.state.cartData) {
       totalCount += (x.product.price * x.quantity)
     }
@@ -137,31 +154,71 @@ class Cart extends React.Component {
   }
 
   confirmBtnHandler = () => {
-    var products = []
-    var x
 
-    for (x of this.state.cartData) {
-      products = [...products, { ...x.product, quantity: x.quantity }]
+    if (this.state.shippingAddress != "" && this.state.shippingType != "") {
+      Axios.post(`${API_URL}/transactions`, {
+        userId: this.props.user.id,
+        subTotal: this.state.cartTotal,
+        checkoutDate: this.getTime(),
+        finishDate: "",
+        shippingAddress: this.state.shippingAddress,
+        shippingType: this.state.shippingType,
+        shippingPrice: this.state.shippingPrice,
+        status: "pending"
+      })
+        .then((res) => {
+          var x
+          for (x of this.state.cartData) {
+            Axios.post(`${API_URL}/transaction_details`, {
+              transactionId: res.data.id,
+              productId: x.product.id,
+              productName: x.product.productName,
+              price: x.product.price,
+              quantity: x.quantity,
+              totalPrice: x.product.price * x.quantity
+            })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                swal("Checkout", "Checkout failed!", "error");
+                console.log(err);
+              });
+          }
+
+          for (x of this.state.cartData) {
+            this.deleteCart(x.id)
+          }
+          console.log(res)
+          this.setState({ cartData: [] })
+          this.setState({ modalOpen: false });
+          swal("Checkout", "Checkout successfully!", "success");
+        })
+        .catch((err) => {
+          swal("Checkout", "Checkout failed!", "error");
+          console.log(err);
+        });
+    }
+    else {
+      swal("Checkout", "Please input shipping address and select the shipping method.", "error");
     }
 
-    Axios.post(`${API_URL}/transactions`, {
-      userId: this.props.user.id,
-      total: this.props.user.cartTotal,
-      date: this.getTime(),
-      shippingAddress: this.state.shippingAddress,
-      products: products,
-    })
-      .then((res) => {
-        for (x of this.state.cartData) {
-          this.deleteCart(x.id)
-        }
-        this.setState({ cartData: [] })
-        swal("Checkout", "Checkout successfully!", "success");
-      })
-      .catch((err) => {
-        swal("Checkout", "Checkout failed!", "error");
-        console.log(err);
-      });
+  }
+
+  checkBoxHandler = (e, idx) => {
+    const { checked } = e.target
+
+    if (checked) {
+      this.setState({ checkoutItems: [...this.state.checkoutItems, idx] })
+    }
+    else {
+      this.setState({ checkoutItems: [...this.state.checkoutItems.filter((val) => val !== idx)] })
+    }
+  }
+
+  shippingHandler = (e) => {
+    var idx = e.target.selectedIndex
+    this.setState({ shippingPrice: parseInt(e.target.value), shippingType: e.target[idx].text })
   }
 
   getTime = () => {
@@ -223,11 +280,35 @@ class Cart extends React.Component {
                   <tbody>{this.renderCheckoutData()}</tbody>
                 </Table>
                 <p className="float-right">
-                  <strong>Sub-total : {new Intl.NumberFormat("id-ID", {
+                  <strong>Sub Total : {new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   }).format(this.state.cartTotal)}</strong>
                 </p>
+                <br />
+
+                {this.state.shippingType != "" ? (
+                  <>
+                    <p className="float-right">
+                      <strong>Shipping Fee :&nbsp;
+                      {this.state.shippingType != "Economy" ? (
+                          new Intl.NumberFormat("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                          }).format(this.state.shippingPrice)
+                        ) : ("FREE")}
+                      </strong>
+                    </p>
+                    <br />
+                    <p className="float-right">
+                      <strong>Grand Total : {new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }).format(this.state.cartTotal + this.state.shippingPrice)}</strong>
+                    </p>
+                  </>
+                ) : null}
+
                 <br /><hr />
                 <textarea
                   style={{ resize: "none" }}
@@ -236,6 +317,17 @@ class Cart extends React.Component {
                   placeholder="Enter shipping address..."
                   className="custom-text-input"
                 ></textarea>
+                <select
+                  value={this.state.paymentType}
+                  className="custom-text-input mb-3"
+                  onChange={(e) => this.shippingHandler(e)}
+                >
+                  <option value="" disabled selected>Select shipping methods</option>
+                  <option value="100000">Instant</option>
+                  <option value="50000">Same Day</option>
+                  <option value="20000">Express</option>
+                  <option value="0">Economy</option>
+                </select>
                 <div className="d-flex flex-row float-right">
                   <ButtonUI onClick={() => this.setState({ modalOpen: false })} type="outlined">Cancel</ButtonUI>
                   <ButtonUI onClick={this.confirmBtnHandler} className="ml-2">Confirm</ButtonUI>
@@ -256,4 +348,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = {
+  cartUpdateHandler
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

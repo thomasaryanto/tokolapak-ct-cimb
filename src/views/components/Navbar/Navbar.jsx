@@ -14,7 +14,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
 import { connect } from "react-redux"
-import { logoutHandler, searchHandler } from "../../../redux/actions"
+import { logoutHandler, searchHandler, cartUpdateHandler } from "../../../redux/actions"
 import Cookie from 'universal-cookie';
 
 const cookieObject = new Cookie();
@@ -29,6 +29,12 @@ class Navbar extends React.Component {
     searcBarInput: "",
     dropdownOpen: false,
   };
+
+  componentDidMount() {
+    if (this.props.user.id) {
+      this.props.cartUpdateHandler(this.props.user.id)
+    }
+  }
 
   logout = () => {
     cookieObject.remove("authData")
@@ -86,18 +92,49 @@ class Navbar extends React.Component {
                   <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
                   <p className="small ml-3 mr-4">{this.props.user.username}</p>
                 </DropdownToggle>
-                <DropdownMenu className="mt-2">
-                  <DropdownItem>
-                    <Link
-                      style={{ color: "inherit", textDecoration: "none" }}
-                      to="/admin/dashboard"
-                    >
-                      Dashboard
+
+                {this.props.user.role == "admin" ? (
+                  <DropdownMenu className="mt-2">
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/dashboard"
+                      >
+                        Dashboard
                     </Link>
-                  </DropdownItem>
-                  <DropdownItem>Members</DropdownItem>
-                  <DropdownItem>Payments</DropdownItem>
-                </DropdownMenu>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/reports"
+                      >
+                        Reports
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/payments"
+                      >
+                        Payments
+                    </Link>
+                    </DropdownItem>
+                  </DropdownMenu>
+                ) : (
+                    <DropdownMenu className="mt-2">
+                      {/* <DropdownItem>Wishlist</DropdownItem> */}
+                      <DropdownItem>
+                        <Link
+                          style={{ color: "inherit", textDecoration: "none" }}
+                          to="/history"
+                        >
+                          History
+                      </Link>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  )}
+
+
               </Dropdown>
               <Link
                 className="d-flex flex-row"
@@ -111,7 +148,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4
+                    {this.props.component.cartCount}
                   </small>
                 </CircleBg>
               </Link>
@@ -152,12 +189,14 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    component: state.component
   };
 };
 
 const mapDispatchToProps = {
   onLogout: logoutHandler,
-  onSearch: searchHandler
+  onSearch: searchHandler,
+  cartUpdateHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

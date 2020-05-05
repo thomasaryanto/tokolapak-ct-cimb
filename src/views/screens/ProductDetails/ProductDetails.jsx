@@ -7,6 +7,7 @@ import ButtonUI from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
+import { cartUpdateHandler } from "../../../redux/actions";
 
 class ProductDetails extends React.Component {
     state = {
@@ -39,7 +40,8 @@ class ProductDetails extends React.Component {
                     })
                         .then((res) => {
                             console.log(res);
-                            swal("Add to cart", "Your item has been added to your cart (+1)", "success");
+                            this.props.cartUpdateHandler(this.props.user.id);
+                            swal("Add to cart", "Your item has been added to your cart", "success");
                         })
                         .catch((err) => {
                             console.log(err);
@@ -52,6 +54,7 @@ class ProductDetails extends React.Component {
                     })
                         .then((res) => {
                             console.log(res);
+                            this.props.cartUpdateHandler(this.props.user.id);
                             swal("Add to cart", "Your item has been added to your cart", "success");
                         })
                         .catch((err) => {
@@ -68,7 +71,6 @@ class ProductDetails extends React.Component {
     };
 
     componentDidMount() {
-        console.log("testt")
         Axios.get(`${API_URL}/products/${this.props.match.params.productId}`)
             .then((res) => {
                 this.setState({ productData: res.data });
@@ -131,4 +133,8 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(ProductDetails);
+const mapDispatchToProps = {
+    cartUpdateHandler
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
